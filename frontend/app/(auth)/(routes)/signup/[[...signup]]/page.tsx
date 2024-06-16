@@ -39,7 +39,7 @@ const Page = () => {
         <>
             <div className='h-screen w-full flex justify-center fixed left-10'>
                 <div className='flex items-center shadow-md rounded-lg overflow-hidden justify-center w-[20rem] md-6 md:w-auto my-4'>
-                    <div className='hidden md:flex justify-center items-center flex-col w-[48rem]'>
+                    <div className='hidden md:flex justify-center items-center flex-col w-[48rem] gap-5'>
                         <h3 className='text-2xl font-semibold text-[#8884d8]'>Hej!</h3>
                         <p className='text-sm max-w-[90%] text-center mb-3'>Korzystanie ze strony nie wymaga konta. Jeśli jednak jesteś administratorem serwera i chciałbyś mieć możliwość zarządzania kontami pojawiającymi się w bazie, konieczne jest zalogowanie.</p>
                         <Link href={"/signin"}>
@@ -76,7 +76,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='ALCMDZ@gmail.com' {...field} />
+                                                <Input placeholder='administrator@poczta.pl' {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

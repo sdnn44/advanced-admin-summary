@@ -4,7 +4,7 @@ import React from "react";
 
 export const metadata: Metadata = {
     title: 'Zarejestruj się - StrefaSkilla-Helper',
-    description: 'Załóż konto, żeby korzystać z wszystkich funkcjonalności aplikacji',
+    description: 'Załóż konto, żeby korzystać ze wszystkich funkcjonalności aplikacji',
 }
 
 const SignUpLayout = ({
