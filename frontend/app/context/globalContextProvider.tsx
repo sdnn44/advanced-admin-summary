@@ -3,6 +3,7 @@ import axios from "axios";
 import { BanType } from "../types/BanType";
 import { AdminType } from "../types/AdminType";
 import { PlaytimeType } from "../types/PlaytimeType";
+import { UserType } from "../types/UserType";
 
 interface GlobalContextProps {
     admin: BanType[];
@@ -18,6 +19,11 @@ interface GlobalContextProps {
     setIsLoading: (value: boolean) => void;
     collapsed: boolean;
     collapseMenu: () => void;
+
+    user?: UserType;
+    token: string | null;
+    setUser: (value: UserType) => void;
+    setToken: (value: string) => void;
 }
 
 interface GlobalUpdateContextProps {
@@ -36,6 +42,19 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
     const [adminNickname, setAdminNickname] = useState<string>('Axel');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [collapsed, setCollapsed] = useState<boolean>(false);
+
+    const [user, setUser] = useState<UserType>();
+    const [token, _setToken] = useState<string | null>(localStorage.getItem('ACCESS_TOKEN'));
+
+    const setToken = (token: string) => {
+        _setToken(token);
+        if (token) {
+            localStorage.setItem('ACCESS_TOKEN', token);
+        } else {
+            localStorage.removeItem('ACCESS_TOKEN');
+        }
+    }
+
 
     const getAllAdmins = async () => {
         setIsLoading(true);
@@ -113,7 +132,11 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
             isLoading,
             setIsLoading,
             collapsed,
-            collapseMenu
+            collapseMenu,
+            user,
+            token,
+            setUser,
+            setToken
         }}>
             <GlobalUpdateContext.Provider value={{ getSpecificAdmin, getSpecificAdminPlaytime }}>
                 {children}

@@ -34,7 +34,7 @@ const Page = () => {
                         <h3 className='text-2xl font-semibold text-[#8884d8]'>Hej!</h3>
                         <p className='text-sm max-w-[90%] text-center mb-3'>Korzystanie ze strony nie wymaga konta. Jeśli jednak jesteś administratorem serwera i chciałbyś mieć możliwość zarządzania kontami pojawiającymi się w bazie, konieczne jest posiadanie konta.</p>
                         <Link href={"/signup"}>
-                            <Button className='border-zinc-500 bg-[#8884d8] text-white hover:bg-[#6764a4] duration-300 ease-in-out border rounded-full px-8'>Zaloguj się</Button>
+                            <Button className='border-zinc-500 bg-[#8884d8] text-white hover:bg-[#6764a4] duration-300 ease-in-out border rounded-full px-8'>Załóż konto</Button>
                         </Link>
                     </div>
                     <div className='px-4 py-4 my-4 mx-4 md:w-1/2 w-[20rem] bg-[#1E293B] rounded-xl gap-5'>

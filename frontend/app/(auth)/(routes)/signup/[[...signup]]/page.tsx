@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,6 +8,8 @@ import { Form, FormControl, FormField, FormItem, FormMessage, FormLabel } from '
 import { Input } from '@/components/ui/input';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
+import axiosClient from '@/app/utils/axios-client';
+import { useGlobalState } from '@/app/context/globalContextProvider';
 
 const signUpSchema = z.object({
     name: z.string().min(2, "Nazwa powinna zawierać więcej niż 2 znaki.")
@@ -22,6 +24,14 @@ const signUpSchema = z.object({
 });
 
 const Page = () => {
+
+    const nameRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+
+    const { setUser, setToken } = useGlobalState();
+
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
@@ -33,6 +43,23 @@ const Page = () => {
     });
 
     function onSubmit(values: z.infer<typeof signUpSchema>) {
+        const payload = {
+            name: nameRef.current?.value,
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+            password_confirmation: passwordConfirmationRef.current?.value,
+        }
+        axiosClient.post('/signup', payload)
+            .then(({ data }) => {
+                setUser(data.user);
+                setToken(data.token);
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            })
     }
 
     return (
@@ -63,7 +90,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Nazwa</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='ALCMDZ' {...field} />
+                                                <Input placeholder='ALCMDZ' {...field} ref={nameRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -76,7 +103,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='administrator@poczta.pl' {...field} />
+                                                <Input placeholder='administrator@poczta.pl' {...field} ref={emailRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -89,7 +116,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Hasło</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='******' type='password' {...field} />
+                                                <Input placeholder='******' type='password' {...field} ref={passwordRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -102,7 +129,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Potwierdź hasło</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='******' type='password' {...field} />
+                                                <Input placeholder='******' type='password' {...field} ref={passwordConfirmationRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
