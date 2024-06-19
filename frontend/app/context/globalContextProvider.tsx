@@ -3,7 +3,8 @@ import axios from "axios";
 import { BanType } from "../types/BanType";
 import { AdminType } from "../types/AdminType";
 import { PlaytimeType } from "../types/PlaytimeType";
-import { UserType } from "../types/UserType";
+import { User } from "../types/UserType";
+import { Token } from "../types/TokenType";
 
 interface GlobalContextProps {
     admin: BanType[];
@@ -20,10 +21,10 @@ interface GlobalContextProps {
     collapsed: boolean;
     collapseMenu: () => void;
 
-    user?: UserType;
-    token: string | null;
-    setUser: (value: UserType) => void;
-    setToken: (value: string) => void;
+    user: User | null;
+    token: Token | null;
+    setUser: (user: User | null) => void;
+    setToken: (token: Token | null) => void;
 }
 
 interface GlobalUpdateContextProps {
@@ -43,10 +44,10 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
-    const [user, setUser] = useState<UserType>();
-    const [token, _setToken] = useState<string | null>(localStorage.getItem('ACCESS_TOKEN'));
+    const [user, setUser] = useState<User | null>(null);
+    const [token, _setToken] = useState<Token | null>(localStorage.getItem('ACCESS_TOKEN'));
 
-    const setToken = (token: string) => {
+    const setToken = (token: Token) => {
         _setToken(token);
         if (token) {
             localStorage.setItem('ACCESS_TOKEN', token);

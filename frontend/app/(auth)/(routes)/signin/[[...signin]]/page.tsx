@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from 'react'
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +11,7 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
 import axiosClient from '@/app/utils/axios-client';
 import { useGlobalState } from '@/app/context/globalContextProvider';
+import { redirect } from 'next/navigation';
 
 const signInSchema = z.object({
     email: z.string().email("Email powinien być prawidłowy."),
@@ -17,11 +19,16 @@ const signInSchema = z.object({
 });
 
 const Page = () => {
-
+    const router = useRouter();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const { setUser, setToken } = useGlobalState();
+    const { token, setUser, setToken } = useGlobalState();
+
+
+    if (token) {
+        redirect("/");
+    }
 
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
@@ -42,14 +49,14 @@ const Page = () => {
                 setUser(data.user);
                 setToken(data.token);
                 console.log(data.token);
+                router.push('/admin/dashboard');
             })
             .catch(err => {
                 const response = err.response;
-                console.log(response);
                 if (response && response.status === 422) {
                     console.log(response.data.errors);
                 }
-            })
+            });
     }
 
     return (
@@ -64,7 +71,7 @@ const Page = () => {
                         </Link>
                     </div>
                     <div className='px-4 py-4 my-4 mx-4 md:w-1/2 w-[20rem] bg-[#1E293B] rounded-xl gap-5'>
-                        <h3 className='text-center text-2xl font-semibold'>Zarejestruj się!</h3>
+                        <h3 className='text-center text-2xl font-semibold'>Zaloguj się!</h3>
                         <div className='my-3 flex justify-center items-center'>
                             <Button variant={"outline"} className="rounded-full h-[2.5rem] w-[2.5rem] p-0 mx-2 border-[#8884d8]"><FaGoogle className='h-5 w-5' /></Button>
                             <Button variant={"outline"} className="rounded-full h-[2.5rem] w-[2.5rem] p-0 mx-2 border-[#8884d8]"><FaFacebook className='h-5 w-5' /></Button>
@@ -93,7 +100,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Hasło</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='******' type='password' {...field} ref={passwordRef}/>
+                                                <Input placeholder='******' type='password' {...field} ref={passwordRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

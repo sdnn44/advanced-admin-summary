@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef } from 'react'
+import React, { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +11,7 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
 import axiosClient from '@/app/utils/axios-client';
 import { useGlobalState } from '@/app/context/globalContextProvider';
+import { redirect } from 'next/navigation';
 
 const signUpSchema = z.object({
     name: z.string().min(2, "Nazwa powinna zawierać więcej niż 2 znaki.")
@@ -24,13 +26,18 @@ const signUpSchema = z.object({
 });
 
 const Page = () => {
-
+    const router = useRouter();
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const passwordConfirmationRef = useRef<HTMLInputElement>(null);
 
-    const { setUser, setToken } = useGlobalState();
+    const { token, setUser, setToken } = useGlobalState();
+
+
+    if (token) {
+        redirect("/admin/dashboard");
+    }
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
@@ -54,9 +61,9 @@ const Page = () => {
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
+                router.push('/admin/dashboard');
             })
             .catch(err => {
-                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     console.log(response.data.errors);

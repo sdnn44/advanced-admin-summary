@@ -1,5 +1,5 @@
-export type UserType = {
+export type User = {
     id: number;
-    nickname: string,
+    name: string,
     email: string;
 }
