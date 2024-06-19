@@ -23,32 +23,29 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('main')->plainTextToken;
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        return response(compact('user', 'token'));
     }
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
         if (!Auth::attempt($credentials)) {
             return response([
-                'message' => 'Provided user and password was incorrect.'
-            ]);
+                'message' => 'Provided email or password is incorrect'
+            ], 422);
         }
+
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        return response(compact('user', 'token'));
     }
+
     public function logout(Request $request)
     {
-        /**@var User $user */
+        /** @var \App\Models\User $user */
         $user = $request->user();
         $user->currentAccessToken()->delete();
         return response('', 204);
     }
-
 }

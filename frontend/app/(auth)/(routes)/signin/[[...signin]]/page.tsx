@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,13 +8,21 @@ import { Form, FormControl, FormField, FormItem, FormMessage, FormLabel } from '
 import { Input } from '@/components/ui/input';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
+import axiosClient from '@/app/utils/axios-client';
+import { useGlobalState } from '@/app/context/globalContextProvider';
 
 const signInSchema = z.object({
     email: z.string().email("Email powinien być prawidłowy."),
-    password: z.string().min(6, "Hasło powinno być dłuższe 6 znaków."),
+    password: z.string().min(8, "Hasło powinno być dłuższe niż 8 znaków."),
 });
 
 const Page = () => {
+
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
+    const { setUser, setToken } = useGlobalState();
+
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
@@ -24,6 +32,24 @@ const Page = () => {
     });
 
     function onSubmit(values: z.infer<typeof signInSchema>) {
+        const payload = {
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+        }
+        console.log(payload);
+        axiosClient.post('/login', payload)
+            .then(({ data }) => {
+                setUser(data.user);
+                setToken(data.token);
+                console.log(data.token);
+            })
+            .catch(err => {
+                const response = err.response;
+                console.log(response);
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            })
     }
 
     return (
@@ -54,7 +80,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='administrator@poczta.pl' {...field} />
+                                                <Input placeholder='administrator@poczta.pl' {...field} ref={emailRef} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -67,7 +93,7 @@ const Page = () => {
                                         <FormItem className="space-y-0 mb-2">
                                             <FormLabel>Hasło</FormLabel>
                                             <FormControl>
-                                                <Input placeholder='******' type='password' {...field} />
+                                                <Input placeholder='******' type='password' {...field} ref={passwordRef}/>
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

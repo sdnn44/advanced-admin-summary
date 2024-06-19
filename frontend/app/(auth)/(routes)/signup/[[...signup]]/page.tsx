@@ -16,8 +16,8 @@ const signUpSchema = z.object({
         .max(10, "Nazwa powinna być krótsza niż 10 znaków.")
         .refine((value) => /^[a-zA-Z]+[-'s]?[a-zA-Z ]+$/.test(value), 'Nazwa powinna zawierać tylko litery'),
     email: z.string().email("Email powinien być prawidłowy."),
-    password: z.string().min(6, "Hasło powinno być dłuższe 6 znaków."),
-    confirmPassword: z.string().min(6, "Hasło powinno być dłuższe 6 znaków.")
+    password: z.string().min(8, "Hasło powinno być dłuższe niż 8 znaków."),
+    confirmPassword: z.string().min(8, "Hasło powinno być dłuższe niż 8 znaków.")
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Hasła nie są zgodne.",
     path: ["confirmPassword"],
@@ -49,12 +49,14 @@ const Page = () => {
             password: passwordRef.current?.value,
             password_confirmation: passwordConfirmationRef.current?.value,
         }
+        console.log(payload);
         axiosClient.post('/signup', payload)
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
             })
             .catch(err => {
+                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     console.log(response.data.errors);
