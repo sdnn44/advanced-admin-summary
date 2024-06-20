@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -25,12 +26,12 @@ use Illuminate\Support\Facades\Route;
 //     Route::apiResource('/users', UserController::class);
 // });
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
+    Route::apiResource('/admins', AdminController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

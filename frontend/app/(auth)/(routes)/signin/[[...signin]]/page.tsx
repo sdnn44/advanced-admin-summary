@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
@@ -25,10 +25,13 @@ const Page = () => {
 
     const { token, setUser, setToken } = useGlobalState();
 
+    useEffect(() => {
 
-    if (token) {
-        redirect("/");
-    }
+        if (token) {
+            redirect("/admin/dashboard");
+        }
+
+    }, []);
 
     const form = useForm<z.infer<typeof signInSchema>>({
         resolver: zodResolver(signInSchema),

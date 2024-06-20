@@ -1,3 +1,4 @@
+import DashboardHeader from "@/app/components/Header/DashboardHeader";
 import type { Metadata } from "next";
 import NextTopLoader from 'nextjs-toploader';
 import React from "react";
@@ -13,6 +14,7 @@ const AdminDashboardLayout = ({
     return (
         <>
             <NextTopLoader color="#000" showSpinner={true} />
+            <DashboardHeader />
             {children}
         </>
     );
