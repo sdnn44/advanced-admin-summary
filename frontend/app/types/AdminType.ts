@@ -1,9 +1,9 @@
 export type AdminType = {
-    id: number;
+    id: number | null;
     img: string,
-    nickname: string;
-    steamURL: string;
+    name: string;
     status: string;
-    csarchiveURL: string;
-    strefaskillaURL: string;
+    steam_url: string;
+    csarchive_url: string;
+    strefaskilla_url: string;
 }

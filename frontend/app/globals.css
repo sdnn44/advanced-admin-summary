@@ -121,3 +121,15 @@
     .moving-svg {
       animation: moveUpDown 2s 5 alternate;
     }
+
+    .card {
+      margin: 12px;
+      border-radius: 20px;
+      background-color: transparent;
+      backdrop-filter: blur (20px);
+      background-image: linear-gradient(
+      -120deg,
+      rgb(136, 132, 216, .25),
+      rgba(0, 0, 0, 0.2)
+      );
+    }

@@ -26,8 +26,8 @@ interface GlobalContextProps {
     setUser: (user: User | null) => void;
     setToken: (token: Token | null) => void;
 
-    adminDashboard: AdminType[] | null;
-    setAdminDashboard: (adminDashboard: AdminType[] | null) => void;
+    adminDashboard: AdminType[];
+    setAdminDashboard: (adminDashboard: AdminType[]) => void;
 }
 
 interface GlobalUpdateContextProps {
@@ -49,7 +49,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
 
     const [user, setUser] = useState<User | null>(null);
     const [token, _setToken] = useState<Token | null>(localStorage.getItem('ACCESS_TOKEN'));
-    const [adminDashboard, setAdminDashboard] = useState<AdminType[] | null>([]);
+    const [adminDashboard, setAdminDashboard] = useState<AdminType[]>([]);
 
     const setToken = (token: Token) => {
         _setToken(token);
