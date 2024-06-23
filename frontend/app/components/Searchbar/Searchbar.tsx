@@ -52,7 +52,7 @@ export default function Searchbar({ }: Props) {
             return;
         console.log(isLoadingAdmin);
         // const response = await fetchAdminByName(searchQuery);
-        const response = { data: adminData.filter(admin => admin.nickname.toLowerCase().includes(searchQuery.toLowerCase())) };
+        const response = { data: adminData.filter(admin => admin.name.toLowerCase().includes(searchQuery.toLowerCase())) };
         console.log(response);
         if (response.data && response.data.length === 0) {
             setNoAdmins(true)

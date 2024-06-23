@@ -15,13 +15,13 @@ export const AnimatedTooltip = ({
   items,
 }: {
   items: {
-    id: number;
-    nickname: string;
+    id: number | null;
+    name: string;
     status: string;
     img: string;
-    steamURL: string;
-    csarchiveURL: string;
-    strefaskillaURL: string;
+    steam_url: string;
+    csarchive_url: string;
+    strefaskilla_url: string;
   }[];
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -51,11 +51,11 @@ export const AnimatedTooltip = ({
       {items.map((item, idx) => (
         <div
           className="-mr-4  relative group cursor-pointer"
-          key={item.nickname}
+          key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
           onClick={() => {
-            router.push(`/admin/czerwiec/${encodeURIComponent(item.nickname)}`);
+            router.push(`/admin/czerwiec/${encodeURIComponent(item.name)}`);
             // getSpecificAdmin(admin.nickname);
             // getSpecificAdminPlaytime(admin.nickname);
             setSearchedAdmin(item);
@@ -87,7 +87,7 @@ export const AnimatedTooltip = ({
               <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
               <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
               <div className="font-bold text-white relative z-30 text-base">
-                {item.nickname}
+                {item.name}
               </div>
               <div className="text-white text-xs">{item.status}</div>
             </motion.div>
@@ -97,7 +97,7 @@ export const AnimatedTooltip = ({
             height={100}
             width={100}
             src={item.img}
-            alt={item.nickname}
+            alt={item.name}
             className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-[#8884d8]  relative transition duration-500"
           />
         </div>

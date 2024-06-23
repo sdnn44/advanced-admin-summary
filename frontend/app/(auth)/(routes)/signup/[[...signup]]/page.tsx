@@ -35,9 +35,9 @@ const Page = () => {
     const { token, setUser, setToken } = useGlobalState();
 
 
-    if (token) {
-        redirect("/admin/dashboard");
-    }
+    // if (token) {
+    //     redirect("/admin/dashboard");
+    // }
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),

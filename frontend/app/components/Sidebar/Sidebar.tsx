@@ -4,11 +4,22 @@ import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { FaBars } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa";
 import { useGlobalState } from '@/app/context/globalContextProvider';
+import { AdminType } from '@/app/types/AdminType';
+import { useEffect, useState } from 'react';
+import axiosClient from '@/app/utils/axios-client';
+import Loader from '../Loader/Loader';
 type Props = {}
 
 export default function Sidebar({ }: Props) {
 
-    const { collapsed, collapseMenu } = useGlobalState();
+    const { isLoading, collapsed, collapseMenu, adminDashboard } = useGlobalState();
+
+
+    // adminPlaytime.map(entry => entry.playtime);
+
+    // if (!token) {
+    //     redirect("/signin");
+    // }
 
     return (
         // <div className="w-40 bg-[#020817] hidden md:flex flex-col border-r-2 relative">
@@ -16,9 +27,12 @@ export default function Sidebar({ }: Props) {
             <button className="absolute top-16 right-[-2rem] p-2 rounded-r-xl border-r-2 border-t-2 border-b-2 md:hidden bg-[#020817]" onClick={collapseMenu}>
                 {collapsed ? <FaBars /> : <FaArrowLeft />}
             </button>
-            <div className='flex items-center h-full flex-col gap-5 my-20 overflow-y-scroll md:overflow-visible'>
-                <AnimatedTooltip items={adminData} />
-            </div>
+            {
+                isLoading ? <Loader /> :
+                    <div className='flex items-center h-full flex-col gap-5 my-20 overflow-y-scroll md:overflow-visible'>
+                        <AnimatedTooltip items={adminDashboard} />
+                    </div>
+            }
         </div>
     )
 }

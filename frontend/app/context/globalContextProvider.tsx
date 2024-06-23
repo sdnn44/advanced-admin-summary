@@ -5,6 +5,7 @@ import { AdminType } from "../types/AdminType";
 import { PlaytimeType } from "../types/PlaytimeType";
 import { User } from "../types/UserType";
 import { Token } from "../types/TokenType";
+import axiosClient from "../utils/axios-client";
 
 interface GlobalContextProps {
     admin: BanType[];
@@ -60,7 +61,6 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
         }
     }
 
-
     const getAllAdmins = async () => {
         setIsLoading(true);
         try {
@@ -73,6 +73,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
             console.log(error);
         }
     };
+
     const getSpecificAdmin = async (nickname: string) => {
         setIsLoading(true);
         try {
@@ -84,6 +85,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
             console.log(error);
         }
     }
+
     const getSpecificAdminPlaytime = async (nickname: string) => {
         setIsLoading(true);
         try {
@@ -95,6 +97,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
             console.log(error);
         }
     }
+
     const getNumberOfAdminBans = () => {
         return admin.length;
     }
@@ -119,8 +122,27 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
         setCollapsed(!collapsed);
     };
 
+    const getAdminDetails = () => {
+        setIsLoading(true);
+
+        axiosClient.get(`/admins`)
+            .then(({ data }) => {
+                console.log(data.data);
+                setAdminDashboard(data.data);
+            })
+            .catch(err => {
+                const response = err.response;
+                if (response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            });
+        // setIsLoading(false);
+    }
+
+
     useEffect(() => {
         getAllAdmins();
+        getAdminDetails();
     }, []);
 
     return (

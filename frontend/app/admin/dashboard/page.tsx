@@ -8,24 +8,37 @@ import { AdminType } from '@/app/types/AdminType';
 
 
 const Page = () => {
-    const { user, token, setUser, setToken, adminDashboard, setAdminDashboard } = useGlobalState();
-    const [isLoading, setisLoading] = useState<boolean>(false);
+    const { user, token,isLoading, setUser, setToken, adminDashboard } = useGlobalState();
+    // const [isLoading, setLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState(null);
 
-    if (!token) {
-        redirect("/signin");
-    }
+    // adminPlaytime.map(entry => entry.playtime);
+
+    // if (!token) {
+    //     redirect("/signin");
+    // }
 
     useEffect(() => {
         axiosClient.get('/user').then(({ data }) => {
             console.log(data);
             setUser(data);
         });
-
-        axiosClient.get('/admins').then(({ data }) => {
-            console.log(data);
-            setAdminDashboard(data);
-        });
-
+        console.log("Add new admin page");
+        console.log(adminDashboard);
+        // axiosClient.get(`/admins`)
+        //     .then(({ data }) => {
+        //         console.log(data);
+        //         setAdminDashboard(data);
+        //         setLoading(false);
+        //     })
+        //     .catch(err => {
+        //         const response = err.response;
+        //         if (response && response.status === 422) {
+        //             console.log(response.data.errors);
+        //             setErrors(response.data.errors);
+        //         }
+        //         setLoading(false);
+        //     });
     }, []);
 
     function onDeleteClick(u: AdminType): void {
@@ -62,7 +75,7 @@ const Page = () => {
                     }
                     {!isLoading &&
                         <tbody>
-                            {adminDashboard?.map(u => (
+                            {adminDashboard.map(u => (
                                 <tr key={u.id}>
                                     <td>{u.id}</td>
                                     <td>{u.name}</td>

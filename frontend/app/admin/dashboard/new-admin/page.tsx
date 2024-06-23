@@ -21,7 +21,7 @@ export default function AddNewAdminPage() {
     })
 
     const [loading, setLoading] = useState<boolean>(false);
-    const [errors, setErrors] = useState(null)
+    const [errors, setErrors] = useState(null);
 
     const onSubmit = (ev: { preventDefault: () => void; }) => {
         ev.preventDefault()
