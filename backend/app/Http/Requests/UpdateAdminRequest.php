@@ -22,12 +22,12 @@ class UpdateAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:20|unique:admins,name,'.$this->id,
+            'name' => 'required|string|max:20|unique:admins,name,' . $this->id,
             'img' => 'required|string',
             'status' => 'required|string|max:20',
-            'steam_url' => 'required|string|unique:admins,steam_url,'.$this->id,
-            'csarchive_url' => 'required|string|unique:admins,csarchive_url,'.$this->id,
-            'strefaskilla_url' => 'required|string|unique:admins,strefaskilla_url,'.$this->id,
+            'steam_url' => 'required|string',
+            'csarchive_url' => 'required',
+            'strefaskilla_url' => 'required|string',
         ];
     }
 }

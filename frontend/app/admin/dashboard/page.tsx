@@ -5,10 +5,13 @@ import { useGlobalState } from '@/app/context/globalContextProvider';
 import axiosClient from '@/app/utils/axios-client';
 import Link from 'next/link';
 import { AdminType } from '@/app/types/AdminType';
+import { DataTable } from '@/app/admins/data-table';
+import { columns } from '@/app/admins/columns';
+import { Button } from '@/components/ui/button';
 
 
 const Page = () => {
-    const { user, token,isLoading, setUser, setToken, adminDashboard } = useGlobalState();
+    const { user, token, isLoading, setUser, setToken, adminDashboard } = useGlobalState();
     // const [isLoading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState(null);
 
@@ -39,60 +42,16 @@ const Page = () => {
         //         }
         //         setLoading(false);
         //     });
-    }, []);
-
-    function onDeleteClick(u: AdminType): void {
-        throw new Error('Function not implemented.');
-    }
+    }, [adminDashboard]);
 
     return (
-        <div>
+        <div className='p-3'>
             <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
-                <h1>Users</h1>
-                <Link className="btn-add" href={"/users/new-admin"}>Add new</Link>
+                <h1 className='p-5 text-3xl font-bold text-[#8884d8]'>Administracja:</h1>
+                {/* <Button className="rounded-xl bg-[#8884d8] hover:bg-[#a6a1f7] text-white hover:text-white/90 duration-300 ease-in-out"><Link href={"/users/new-admin"}>Add new</Link></Button> */}
             </div>
-            <div className="card animated fadeInDown">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nickname</th>
-                            <th>Status</th>
-                            <th>Steam URL</th>
-                            <th>cs-archive</th>
-                            <th>Konto na forum</th>
-                            <th>Akcje</th>
-                        </tr>
-                    </thead>
-                    {isLoading &&
-                        <tbody>
-                            <tr>
-                                <td colSpan={5} className="text-center">
-                                    isLoading...
-                                </td>
-                            </tr>
-                        </tbody>
-                    }
-                    {!isLoading &&
-                        <tbody>
-                            {adminDashboard.map(u => (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{u.name}</td>
-                                    <td>{u.status}</td>
-                                    <td>{u.steam_url}</td>
-                                    <td>{u.csarchive_url}</td>
-                                    <td>{u.strefaskilla_url}</td>
-                                    <td>
-                                        <Link className="btn-edit" href={'/admin/dashboard/' + u.id}>Edit</Link>
-                                        &nbsp;
-                                        <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    }
-                </table>
+            <div className='p-4'>
+                <DataTable columns={columns} data={adminDashboard} />
             </div>
         </div>
     )

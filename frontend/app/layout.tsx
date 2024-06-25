@@ -29,7 +29,7 @@ export default function RootLayout({
         />
         <ContextProvider>
           <GlobalStyleProvider>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <div className="w-full">
               <Header />
               {children}

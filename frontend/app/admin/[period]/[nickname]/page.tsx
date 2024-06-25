@@ -7,6 +7,7 @@ import { PlaytimeType } from '@/app/types/PlaytimeType';
 import { BanType } from '@/app/types/BanType';
 import axios from 'axios';
 import Link from 'next/link';
+import Sidebar from '@/app/components/Sidebar/Sidebar';
 
 async function getAdminData(adminNickname: string, period: string) {
     const res = await axios.get(`https://strefaskilla-helper.vercel.app/api/admins/${period}/${adminNickname}`);
@@ -56,35 +57,38 @@ export default async function AdminDetails({ params }: { params: { nickname: str
     }
 
     return (
-        <div className='md:h-screen p-4 md:flex md:flex-col'>
-            <div className='flex flex-col w-full md:h-1/3'>
-                <div className='flex flex-col md:flex-row  gap-6 md:gap-3'>
-                    <BanCard playtime={adminPlaytime} adminNickname={params.nickname} />
-                    <ProfileCard numberOfGivenBans={getNumberOfAdminBans()} numberOfGivenDemos={getNumberOfGivenDemos()} numberOfGivenScreenshots={getNumberOfGivenScreenshots()} />
-                </div>
-                <div className='flex flex-row px-8 pt-2 z-50'>
-                    {PERIOD.map((option) => (
-                        <Link
-                            key={option.id}
-                            className={`flex w-24 justify-center text-sm font-bold rounded-xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.periodLabel === params.period
-                                ? 'bg-violet-300 text-violet-800'
-                                : 'hover:bg-violet-300 hover:text-violet-800'
-                                }
-                            `}
-                            href={`/admin/${option.periodLabel}/${params.nickname}`}
-                        >
-                            {option.periodLabel}
-                        </Link >
-                    ))}
-                </div>
-            </div>
-            <div className='w-full h-1/2'>
-                <section className='py-4 md:py-24'>
-                    <div className='container'>
-                        <DataTable columns={columns} data={adminData} />
+        <>
+            <Sidebar />
+            <div className='md:h-screen p-4 md:flex md:flex-col'>
+                <div className='flex flex-col w-full md:h-1/3'>
+                    <div className='flex flex-col md:flex-row  gap-6 md:gap-3'>
+                        <BanCard playtime={adminPlaytime} adminNickname={params.nickname} />
+                        <ProfileCard numberOfGivenBans={getNumberOfAdminBans()} numberOfGivenDemos={getNumberOfGivenDemos()} numberOfGivenScreenshots={getNumberOfGivenScreenshots()} />
                     </div>
-                </section>
+                    <div className='flex flex-row px-8 pt-2 z-50'>
+                        {PERIOD.map((option) => (
+                            <Link
+                                key={option.id}
+                                className={`flex w-24 justify-center text-sm font-bold rounded-xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.periodLabel === params.period
+                                    ? 'bg-violet-300 text-violet-800'
+                                    : 'hover:bg-violet-300 hover:text-violet-800'
+                                    }
+                            `}
+                                href={`/admin/${option.periodLabel}/${params.nickname}`}
+                            >
+                                {option.periodLabel}
+                            </Link >
+                        ))}
+                    </div>
+                </div>
+                <div className='w-full h-1/2'>
+                    <section className='py-4 md:py-24'>
+                        <div className='container'>
+                            <DataTable columns={columns} data={adminData} />
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

@@ -11,7 +11,6 @@ import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
 import axiosClient from '@/app/utils/axios-client';
 import { useGlobalState } from '@/app/context/globalContextProvider';
-import { redirect } from 'next/navigation';
 
 const signUpSchema = z.object({
     name: z.string().min(2, "Nazwa powinna zawierać więcej niż 2 znaki.")
