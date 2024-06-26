@@ -20,5 +20,6 @@ class Admin extends Model
         'steam_url',
         'csarchive_url',
         'strefaskilla_url',
+        'tsarvar_url',
     ];
 }

@@ -23,6 +23,7 @@ class AdminResource extends JsonResource
             'steam_url' => $this->steam_url,
             'csarchive_url' => $this->csarchive_url,
             'strefaskilla_url' => $this->strefaskilla_url,
+            'tsarvar_url' => $this->tsarvar_url,
         ];
     }
 }

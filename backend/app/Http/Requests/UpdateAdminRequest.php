@@ -28,6 +28,7 @@ class UpdateAdminRequest extends FormRequest
             'steam_url' => 'required|string',
             'csarchive_url' => 'required',
             'strefaskilla_url' => 'required|string',
+            'tsarvar_url' => 'required|string',
         ];
     }
 }

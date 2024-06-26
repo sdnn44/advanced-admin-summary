@@ -28,6 +28,7 @@ class StoreAdminRequest extends FormRequest
             'steam_url' => 'required|string|unique:admins,steam_url',
             'csarchive_url' => 'required|string|unique:admins,csarchive_url',
             'strefaskilla_url' => 'required|string|unique:admins,strefaskilla_url',
+            'tsarvar_url' => 'required|string|unique:admins,strefaskilla_url',
         ];
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('steam_url');
             $table->string('csarchive_url');
             $table->string('strefaskilla_url');
+            $table->string('tsarvar_url');
         });
     }
 
