@@ -3,8 +3,7 @@ import { AdminType } from '@/app/types/AdminType';
 import axiosClient from '@/app/utils/axios-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -29,6 +28,9 @@ const signUpSchema = z.object({
     strefaskilla_url: z.string()
         .min(8, "Adres URL powinnien być dłuższy niż 8 znaków.")
         .refine((value) => /^https:\/\/strefaskilla\.pl\/profile\//.test(value), 'URL powinien zaczynać się od https://strefaskilla.pl/profile/'),
+    tsarvar_url: z.string()
+        .min(8, "Adres URL powinnien być dłuższy niż 8 znaków.")
+        .refine((value) => /^https:\/\/tsarvar\.com\/pl\//.test(value), 'URL powinien zaczynać się od https://tsarvar.com/pl/'),
 });
 
 export default function EditAdminPage({ params }: { params: { id: string } }) {
@@ -43,7 +45,8 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
         status: '',
         steam_url: '',
         csarchive_url: '',
-        strefaskilla_url: ''
+        strefaskilla_url: '',
+        tsarvar_url: '',
     })
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -55,17 +58,19 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
     const steam_urlRef = useRef<HTMLInputElement>(null);
     const csarchive_urlRef = useRef<HTMLInputElement>(null);
     const strefaskilla_urlRef = useRef<HTMLInputElement>(null);
+    const tsarvar_urlRef = useRef<HTMLInputElement>(null);
 
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
             name: user.name,
-            img: "",
-            status: "",
-            steam_url: "",
-            csarchive_url: "",
-            strefaskilla_url: "",
+            img: user.img,
+            status: user.status,
+            steam_url: user.steam_url,
+            csarchive_url: user.csarchive_url,
+            strefaskilla_url: user.strefaskilla_url,
+            tsarvar_url: user.tsarvar_url,
         },
     });
 
@@ -92,6 +97,7 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
             steam_url: steam_urlRef.current?.value,
             csarchive_url: csarchive_urlRef.current?.value,
             strefaskilla_url: strefaskilla_urlRef.current?.value,
+            tsarvar_url: tsarvar_urlRef.current?.value
         }
         console.log(payload);
 
@@ -220,6 +226,20 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
                                         <FormLabel>Konto na forum</FormLabel>
                                         <FormControl>
                                             <Input {...field} className='p-4 mb-4 border-[#8884d882]' placeholder="https://strefaskilla.pl/profile/14984-alcmdz/" ref={strefaskilla_urlRef} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="tsarvar_url"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-0 mb-2">
+                                        <FormLabel>Profil tsarvar</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} className='p-4 mb-4 border-[#8884d882]' placeholder="https://tsarvar.com/pl/player146582-webster1" ref={tsarvar_urlRef} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

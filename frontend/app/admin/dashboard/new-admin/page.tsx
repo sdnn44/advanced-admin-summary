@@ -26,6 +26,9 @@ const signUpSchema = z.object({
     strefaskilla_url: z.string()
         .min(8, "Adres URL powinnien być dłuższy niż 8 znaków.")
         .refine((value) => /^https:\/\/strefaskilla\.pl\/profile\//.test(value), 'URL powinien zaczynać się od https://strefaskilla.pl/profile/'),
+    tsarvar_url: z.string()
+        .min(8, "Adres URL powinnien być dłuższy niż 8 znaków.")
+        .refine((value) => /^https:\/\/tsarvar\.com\/pl\//.test(value), 'URL powinien zaczynać się od https://tsarvar.com/pl/'),
 });
 
 export default function AddNewAdminPage() {
@@ -40,6 +43,7 @@ export default function AddNewAdminPage() {
     const steam_urlRef = useRef<HTMLInputElement>(null);
     const csarchive_urlRef = useRef<HTMLInputElement>(null);
     const strefaskilla_urlRef = useRef<HTMLInputElement>(null);
+    const tsarvar_urlRef = useRef<HTMLInputElement>(null);
 
     const [user, setUser] = useState<AdminType>({
         id: null,
@@ -48,7 +52,8 @@ export default function AddNewAdminPage() {
         status: '',
         steam_url: '',
         csarchive_url: '',
-        strefaskilla_url: ''
+        strefaskilla_url: '',
+        tsarvar_url: ''
     })
 
     const form = useForm<z.infer<typeof signUpSchema>>({
@@ -60,6 +65,7 @@ export default function AddNewAdminPage() {
             steam_url: "",
             csarchive_url: "",
             strefaskilla_url: "",
+            tsarvar_url: ""
         },
     });
 
@@ -72,6 +78,7 @@ export default function AddNewAdminPage() {
             steam_url: steam_urlRef.current?.value,
             csarchive_url: csarchive_urlRef.current?.value,
             strefaskilla_url: strefaskilla_urlRef.current?.value,
+            tsarvar_url: tsarvar_urlRef.current?.value,
         }
         console.log(payload);
 
@@ -186,6 +193,20 @@ export default function AddNewAdminPage() {
                                         <FormLabel>Konto na forum</FormLabel>
                                         <FormControl>
                                             <Input {...field} className='p-4 mb-4 border-[#8884d882]' placeholder="https://strefaskilla.pl/profile/14984-alcmdz/" ref={strefaskilla_urlRef} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="tsarvar_url"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-0 mb-2">
+                                        <FormLabel>Profil tsarvar</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} className='p-4 mb-4 border-[#8884d882]' placeholder="https://tsarvar.com/pl/player146582-webster1" ref={tsarvar_urlRef} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

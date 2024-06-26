@@ -86,6 +86,15 @@ export const columns: ColumnDef<AdminType>[] = [
     )
   },
   {
+    accessorKey: "tsarvar_url",
+    header: "Profil tsarvar",
+    cell: ({ row }) => (
+      <a href={row.getValue("tsarvar_url")} target="_blank" rel="noopener noreferrer">
+        {row.getValue("tsarvar_url")}
+      </a>
+    )
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const details = row.original
