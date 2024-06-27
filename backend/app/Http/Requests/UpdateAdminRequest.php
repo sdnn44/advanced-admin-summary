@@ -22,7 +22,7 @@ class UpdateAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:20|unique:admins,name,' . $this->id,
+            'name' => 'required|string|max:20',
             'img' => 'required|string',
             'status' => 'required|string|max:20',
             'steam_url' => 'required|string',

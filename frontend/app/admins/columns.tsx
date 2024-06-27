@@ -90,7 +90,7 @@ export const columns: ColumnDef<AdminType>[] = [
     header: "Profil tsarvar",
     cell: ({ row }) => (
       <a href={row.getValue("tsarvar_url")} target="_blank" rel="noopener noreferrer">
-        {row.getValue("tsarvar_url")}
+        Link do tsarvar
       </a>
     )
   },
@@ -117,7 +117,9 @@ export const columns: ColumnDef<AdminType>[] = [
             <DropdownMenuItem
               onClick={() => window.location.href = row.original.strefaskilla_url}
             >
-              Odwiedź profil na forum
+              <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer">
+                Odwiedź profil na forum
+              </a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem><Link href={'/admin/dashboard/' + row.original.id}>Edytuj dane</Link></DropdownMenuItem>

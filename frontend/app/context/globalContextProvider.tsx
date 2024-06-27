@@ -30,7 +30,7 @@ interface GlobalContextProps {
     adminDashboard: AdminType[];
     setAdminDashboard: (adminDashboard: AdminType[]) => void;
 
-    getAllAdmins: () => void;
+    getAdminDetails: () => void;
 }
 
 interface GlobalUpdateContextProps {
@@ -168,7 +168,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
             setToken,
             adminDashboard,
             setAdminDashboard,
-            getAllAdmins
+            getAdminDetails
         }}>
             <GlobalUpdateContext.Provider value={{ getSpecificAdmin, getSpecificAdminPlaytime }}>
                 {children}

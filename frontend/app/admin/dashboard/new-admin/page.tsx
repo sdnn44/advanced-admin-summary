@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormMessage, FormLabel } from '@/components/ui/form';
+import { useGlobalState } from '@/app/context/globalContextProvider';
 
 const signUpSchema = z.object({
     name: z.string().min(3, "Nazwa powinna zawierać więcej niż 3 znaki."),
@@ -33,6 +34,8 @@ const signUpSchema = z.object({
 
 export default function AddNewAdminPage() {
     const router = useRouter();
+    
+    const { getAdminDetails } = useGlobalState();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState(null);
@@ -85,6 +88,7 @@ export default function AddNewAdminPage() {
         axiosClient.post('/admins', payload)
             .then(() => {
                 //   setNotification('User was successfully created')
+                getAdminDetails();
                 router.push('/admin/dashboard');
             })
             .catch(err => {

@@ -36,7 +36,7 @@ const signUpSchema = z.object({
 export default function EditAdminPage({ params }: { params: { id: string } }) {
 
     const router = useRouter();
-    const { getAllAdmins } = useGlobalState();
+    const { getAdminDetails } = useGlobalState();
 
     const [user, setUser] = useState<AdminType>({
         id: null,
@@ -105,7 +105,7 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
             axiosClient.put(`/admins/${user.id}`, payload)
                 .then(() => {
                     //   setNotification('User was successfully updated')
-                    getAllAdmins();
+                    getAdminDetails();
                     router.push('/admin/dashboard')
                 })
                 .catch(err => {
