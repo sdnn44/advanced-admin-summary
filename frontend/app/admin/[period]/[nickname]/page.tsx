@@ -10,12 +10,12 @@ import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
 
 async function getAdminData(adminNickname: string, period: string) {
-    const res = await axios.get(`https://strefaskilla-helper.vercel.app/api/admins/${period}/${adminNickname}`);
+    const res = await axios.get(`http://localhost:3000/api/admins/${period}/${adminNickname}`);
     return res.data;
 }
 
 async function getAdminPlaytime(adminNickname: string, period: string) {
-    const res = await axios.get(`http://strefaskilla-helper.vercel.app/api/playtimes/${period}/${adminNickname}`);
+    const res = await axios.get(`http://localhost:3000/api/playtimes/${period}/${adminNickname}`);
     return res.data;
 }
 
@@ -51,13 +51,13 @@ export default async function AdminDetails({ params }: { params: { nickname: str
     const getNumberOfGivenScreenshots = () => {
         let numberOfGivenScreenshots = adminData.filter((ban: BanType) => {
             const reasonLower = ban.Reason ? ban.Reason.toLowerCase() : "";
-            return reasonLower.includes("wstaw_screeny") || reasonLower.includes("screenshooty");
+            return reasonLower.includes("wstaw_screeny") || reasonLower.includes("screenshooty") || reasonLower.includes("screeny");
         }).length;
         return numberOfGivenScreenshots;
     }
 
     return (
-        <>
+        <div className='flex'>
             <Sidebar />
             <div className='md:h-screen p-4 md:flex md:flex-col'>
                 <div className='flex flex-col w-full md:h-1/3'>
@@ -89,6 +89,6 @@ export default async function AdminDetails({ params }: { params: { nickname: str
                     </section>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

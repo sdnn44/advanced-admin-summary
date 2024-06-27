@@ -124,7 +124,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
         setCollapsed(!collapsed);
     };
 
-    const getAdminDetails = () => {
+    const getAdminDetails = async () => {
         setIsLoading(true);
 
         axiosClient.get(`/admins`)

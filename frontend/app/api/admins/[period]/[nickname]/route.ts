@@ -10,7 +10,7 @@ export async function GET(req: Request, { params }: { params: { nickname: string
         // return NextResponse.json({ error: "Unauthorized", status: 401 });
         const { nickname } = params;
 
-        const adminRef = ref(db, `admins/newbansdd2/${nickname}`);
+        const adminRef = ref(db, `admins/banscodmod/${nickname}`);
         const adminSnapshot = await get(adminRef);
         if (adminSnapshot.exists()) {
             // const adminData = adminSnapshot.val();

@@ -27,12 +27,9 @@ export default function Sidebar({ }: Props) {
             <button className="absolute top-16 right-[-2rem] p-2 rounded-r-xl border-r-2 border-t-2 border-b-2 md:hidden bg-[#020817]" onClick={collapseMenu}>
                 {collapsed ? <FaBars /> : <FaArrowLeft />}
             </button>
-            {
-                isLoading ? <Loader /> :
-                    <div className='flex items-center h-full flex-col gap-5 my-20 overflow-y-scroll md:overflow-visible'>
-                        <AnimatedTooltip items={adminDashboard} />
-                    </div>
-            }
+            <div className='flex items-center h-full flex-col gap-5 my-20 overflow-y-scroll md:overflow-visible'>
+                <AnimatedTooltip items={adminDashboard} />
+            </div>
         </div>
     )
 }
