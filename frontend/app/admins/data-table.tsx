@@ -56,9 +56,9 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
-      // pagination: {
-      //   pageSize: 8,
-      // },
+      pagination: {
+        pageSize: 6,
+      },
     },
     state: {
       sorting,

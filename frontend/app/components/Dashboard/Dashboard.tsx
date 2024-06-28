@@ -15,11 +15,11 @@ export default function Dashboard({ }: Props) {
   return (
     <>
       <Sidebar />
-      <div className='h-full w-full p-4 lg:fixed lg:top-0 -z-10'>
+      <div className='h-full w-full p-4 lg:fixed lg:top-0 -z-10 '>
         {searchedAdmin ? (
           isLoading ? <div className='h-full w-full justify-center items-center'><Loader /></div> : <></>
         ) : (
-          <div className='flex items-center justify-center h-full w-full'>
+          <div className='flex items-center justify-center h-full w-full '>
             {/* <h2 className='text-3xl opacity-50'>Wybierz admina z listy, żeby wyświetlić jego statystyki.</h2>
              */}
             <HeroHighlight>

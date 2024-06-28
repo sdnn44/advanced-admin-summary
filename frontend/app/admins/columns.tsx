@@ -81,7 +81,7 @@ export const columns: ColumnDef<AdminType>[] = [
     header: "Konto forum",
     cell: ({ row }) => (
       <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer">
-        {row.getValue("strefaskilla_url")}
+        Link do konta na forum
       </a>
     )
   },

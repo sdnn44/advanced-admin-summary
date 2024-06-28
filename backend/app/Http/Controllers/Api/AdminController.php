@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function index()
     {
         return AdminResource::collection(
-            Admin::query()->orderBy('name', 'desc')->paginate(20)
+            Admin::query()->orderBy('status', 'desc')->paginate(20)
         );
     }
 

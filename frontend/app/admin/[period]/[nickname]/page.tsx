@@ -57,7 +57,7 @@ export default async function AdminDetails({ params }: { params: { nickname: str
     }
 
     return (
-        <div className='flex'>
+        <div className='md:h-screen md:flex'>
             <Sidebar />
             <div className='md:h-screen p-4 md:flex md:flex-col'>
                 <div className='flex flex-col w-full md:h-1/3'>
@@ -65,7 +65,7 @@ export default async function AdminDetails({ params }: { params: { nickname: str
                         <BanCard playtime={adminPlaytime} adminNickname={params.nickname} />
                         <ProfileCard numberOfGivenBans={getNumberOfAdminBans()} numberOfGivenDemos={getNumberOfGivenDemos()} numberOfGivenScreenshots={getNumberOfGivenScreenshots()} />
                     </div>
-                    <div className='flex flex-row px-8 pt-2 z-50'>
+                    <div className='flex flex-row px-8 pt-2 z-20'>
                         {PERIOD.map((option) => (
                             <Link
                                 key={option.id}
