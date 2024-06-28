@@ -72,7 +72,7 @@ const Page = () => {
 
     return (
         <>
-            <div className='h-screen w-full flex justify-center fixed left-10'>
+            <div className='h-screen w-full flex justify-center fixed'>
                 <div className='flex items-center shadow-md rounded-lg overflow-hidden justify-center w-[20rem] md-6 md:w-auto my-4'>
                     <div className='hidden md:flex justify-center items-center flex-col w-[48rem] gap-5'>
                         <h3 className='text-2xl font-semibold text-[#8884d8]'>Hej!</h3>

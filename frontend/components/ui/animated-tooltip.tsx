@@ -22,6 +22,7 @@ export const AnimatedTooltip = ({
     steam_url: string;
     csarchive_url: string;
     strefaskilla_url: string;
+    tsarvar_url: string;
   }[];
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

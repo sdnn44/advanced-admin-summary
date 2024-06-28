@@ -15,11 +15,9 @@ const Page = () => {
     // const [isLoading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState(null);
 
-    // adminPlaytime.map(entry => entry.playtime);
-
-    // if (!token) {
-    //     redirect("/signin");
-    // }
+    if (!token) {
+        redirect("/signin");
+    }
 
     useEffect(() => {
         axiosClient.get('/user').then(({ data }) => {

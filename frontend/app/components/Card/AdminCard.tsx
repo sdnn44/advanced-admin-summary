@@ -18,7 +18,7 @@ function AdminCard({ admin, index }: Prop) {
         <div
             className='w-full flex flex-row m-1 hover:bg-violet-700/15 cursor-pointer gap-3 items-center p-2'
             onClick={() => {
-                router.push(`/admin/${encodeURIComponent(admin.nickname)}`);
+                router.push(`/admin/czerwiec/${encodeURIComponent(admin.name)}`);
                 // getSpecificAdmin(admin.nickname);
                 // getSpecificAdminPlaytime(admin.nickname);
                 setSearchedAdmin(admin);
@@ -29,7 +29,7 @@ function AdminCard({ admin, index }: Prop) {
             <Image src={admin.img} width={50} height={50} className="flex rounded-full" alt={''} />
             <div className='flex flex-col'>
                 <div className="flex items-center">
-                    <span className="font-semibold">{admin.nickname}</span>
+                    <span className="font-semibold">{admin.name}</span>
                 </div>
                 <div className="flex text-[12px] font-semibold text-[#8884d8]">
                     {admin.status}

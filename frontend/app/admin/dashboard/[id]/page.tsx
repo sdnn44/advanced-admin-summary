@@ -3,7 +3,7 @@ import { AdminType } from '@/app/types/AdminType';
 import axiosClient from '@/app/utils/axios-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
@@ -35,8 +35,13 @@ const signUpSchema = z.object({
 
 export default function EditAdminPage({ params }: { params: { id: string } }) {
 
+    const { token, getAdminDetails } = useGlobalState();
+
+    if (!token) {
+        redirect("/signin");
+    }
+
     const router = useRouter();
-    const { getAdminDetails } = useGlobalState();
 
     const [user, setUser] = useState<AdminType>({
         id: null,

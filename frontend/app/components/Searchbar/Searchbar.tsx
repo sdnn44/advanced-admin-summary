@@ -1,5 +1,4 @@
 "use client"
-import adminData from '@/app/utils/admins-data';
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useClickOutside } from 'react-click-outside-hook';
@@ -9,11 +8,14 @@ import AdminCard from '../Card/AdminCard';
 import { useDebounce } from '@/app/hooks/debounceHook';
 import Loader from '../Loader/Loader';
 import { AdminType } from '@/app/types/AdminType';
+import { useGlobalState } from '@/app/context/globalContextProvider';
 
 
 type Props = {}
 
 export default function Searchbar({ }: Props) {
+
+    const { adminDashboard } = useGlobalState();
 
     const [isExpanded, setExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -52,7 +54,7 @@ export default function Searchbar({ }: Props) {
             return;
         console.log(isLoadingAdmin);
         // const response = await fetchAdminByName(searchQuery);
-        const response = { data: adminData.filter(admin => admin.name.toLowerCase().includes(searchQuery.toLowerCase())) };
+        const response = { data: adminDashboard.filter(admin => admin.name.toLowerCase().includes(searchQuery.toLowerCase())) };
         console.log(response);
         if (response.data && response.data.length === 0) {
             setNoAdmins(true)

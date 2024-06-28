@@ -67,17 +67,30 @@ export default async function AdminDetails({ params }: { params: { nickname: str
                     </div>
                     <div className='flex flex-row px-8 pt-2 z-20'>
                         {PERIOD.map((option) => (
-                            <Link
-                                key={option.id}
-                                className={`flex w-24 justify-center text-sm font-bold rounded-xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.periodLabel === params.period
-                                    ? 'bg-violet-300 text-violet-800'
-                                    : 'hover:bg-violet-300 hover:text-violet-800'
-                                    }
-                            `}
-                                href={`/admin/${option.periodLabel}/${params.nickname}`}
-                            >
-                                {option.periodLabel}
-                            </Link >
+                            option.id === 1 ? (
+                                <div
+                                    key={option.id}
+                                    className={`flex w-24 justify-center text-sm cursor-pointer font-bold rounded-xl p-1 px-3 mx-1 border-2 border-violet-400 ${option.periodLabel === params.period
+                                        ? 'bg-violet-300 text-violet-800'
+                                        : 'hover:bg-violet-300 hover:text-violet-800'
+                                        }
+            `}
+                                >
+                                    {option.periodLabel}
+                                </div>
+                            ) : (
+                                <Link
+                                    key={option.id}
+                                    className={`flex w-24 justify-center text-sm font-bold rounded-xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.periodLabel === params.period
+                                        ? 'bg-violet-300 text-violet-800'
+                                        : 'hover:bg-violet-300 hover:text-violet-800'
+                                        }
+            `}
+                                    href={`/admin/${option.periodLabel}/${params.nickname}`}
+                                >
+                                    {option.periodLabel}
+                                </Link>
+                            )
                         ))}
                     </div>
                 </div>
