@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormMessage, FormLabel } from '@/components/ui/form';
 import { useGlobalState } from '@/app/context/globalContextProvider';
+import Loader from '@/app/components/Loader/Loader';
 
 const signUpSchema = z.object({
     name: z.string().min(3, "Nazwa powinna zawierać więcej niż 3 znaki."),
@@ -140,9 +141,7 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
             {!params.id && <h1>Dodaj admina</h1>}
             <div className="bg-white rounded-md shadow-sm p-5 mb-4 mt-2 card animated fadeInDown">
                 {loading && (
-                    <div className="text-center">
-                        Loading...
-                    </div>
+                    <Loader />
                 )}
                 {errors &&
                     <div className="alert">

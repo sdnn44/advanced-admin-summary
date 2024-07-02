@@ -24,7 +24,6 @@ const Page = () => {
             console.log(data);
             setUser(data);
         });
-        console.log("Add new admin page");
         console.log(adminDashboard);
     }, [adminDashboard]);
 

@@ -14,15 +14,17 @@ import { AdminType } from "../types/AdminType"
 import Image from "next/image"
 import Link from "next/link"
 import axiosClient from "../utils/axios-client"
+import { useGlobalState } from "../context/globalContextProvider"
+import { FaLink } from "react-icons/fa";
 
-const onDeleteClick = (adminId: number | null) => {
+const onDeleteClick = (adminId: number | null, getAdminDetails: () => void) => {
   if (!window.confirm("Czy jesteś pewny, że chcesz usunąć użytkownika?")) {
     return
   }
   try {
     axiosClient.delete(`/admins/${adminId}`)
     // setNotification('User was successfully deleted')
-    // getUsers()
+    getAdminDetails()
   } catch (error) {
     console.error("Failed to delete user:", error)
   }
@@ -62,7 +64,7 @@ export const columns: ColumnDef<AdminType>[] = [
     accessorKey: "steam_url",
     header: "Konto Steam",
     cell: ({ row }) => (
-      <a href={row.getValue("steam_url")} target="_blank" rel="noopener noreferrer">
+      <a href={row.getValue("steam_url")} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 hover:text-[#8884d8] duration-300 ease-in-out">
         {row.getValue("steam_url")}
       </a>
     )
@@ -71,8 +73,8 @@ export const columns: ColumnDef<AdminType>[] = [
     accessorKey: "csarchive_url",
     header: "cs-archive",
     cell: ({ row }) => (
-      <a href={row.getValue("csarchive_url")} target="_blank" rel="noopener noreferrer">
-        Link do cs-archive
+      <a href={row.getValue("csarchive_url")} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 hover:text-[#8884d8] duration-300 ease-in-out">
+        <FaLink /> cs-archive
       </a>
     )
   },
@@ -80,8 +82,8 @@ export const columns: ColumnDef<AdminType>[] = [
     accessorKey: "strefaskilla_url",
     header: "Konto forum",
     cell: ({ row }) => (
-      <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer">
-        Link do konta na forum
+      <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 hover:text-[#8884d8] duration-300 ease-in-out">
+        <FaLink /> forum
       </a>
     )
   },
@@ -89,8 +91,8 @@ export const columns: ColumnDef<AdminType>[] = [
     accessorKey: "tsarvar_url",
     header: "Profil tsarvar",
     cell: ({ row }) => (
-      <a href={row.getValue("tsarvar_url")} target="_blank" rel="noopener noreferrer">
-        Link do tsarvar
+      <a href={row.getValue("tsarvar_url")} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 hover:text-[#8884d8] duration-300 ease-in-out">
+        <FaLink /> tsarvar
       </a>
     )
   },
@@ -98,7 +100,7 @@ export const columns: ColumnDef<AdminType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const details = row.original
-
+      const { getAdminDetails } = useGlobalState()
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -117,16 +119,20 @@ export const columns: ColumnDef<AdminType>[] = [
             <DropdownMenuItem
               onClick={() => window.location.href = row.original.strefaskilla_url}
             >
-              <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer">
+              <a href={row.getValue("strefaskilla_url")} target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-2 hover:text-[#8884d8] duration-300 ease-in-out">
                 Odwiedź profil na forum
               </a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem><Link href={'/admin/dashboard/' + row.original.id}>Edytuj dane</Link></DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onDeleteClick(row.original.id)}>Usuń konto</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onDeleteClick(row.original.id, getAdminDetails)}>Usuń konto</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
     },
   },
 ]
+function getAdminDetails() {
+  throw new Error("Function not implemented.")
+}
+
