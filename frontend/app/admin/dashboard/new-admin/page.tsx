@@ -4,7 +4,7 @@ import axiosClient from '@/app/utils/axios-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { redirect, useRouter } from 'next/navigation';
-import React, { useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -36,7 +36,7 @@ const signUpSchema = z.object({
 export default function AddNewAdminPage() {
     const router = useRouter();
 
-    const { getAdminDetails } = useGlobalState();
+    const { token, getAdminDetails } = useGlobalState();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState(null);
@@ -72,6 +72,12 @@ export default function AddNewAdminPage() {
             tsarvar_url: ""
         },
     });
+    
+    useLayoutEffect(() => {
+        if (!token) {
+            redirect("/signin");
+        }
+    }, []);
 
     function onSubmit(values: z.infer<typeof signUpSchema>) {
         // ev.preventDefault()
