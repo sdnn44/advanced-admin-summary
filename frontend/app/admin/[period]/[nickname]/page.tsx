@@ -30,6 +30,10 @@ export default async function AdminDetails({ params }: { params: { nickname: str
         {
             id: 2,
             periodLabel: "czerwiec",
+        },
+        {
+            id: 3,
+            periodLabel: "lipiec",
         }
     ];
 
