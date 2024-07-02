@@ -10,12 +10,12 @@ import Link from 'next/link';
 import Sidebar from '@/app/components/Sidebar/Sidebar';
 
 async function getAdminData(adminNickname: string, period: string) {
-    const res = await axios.get(`http://localhost:3000/api/admins/${period}/${adminNickname}`);
+    const res = await axios.get(`https://codmod-summary.vercel.app/api/admins/${period}/${adminNickname}`);
     return res.data;
 }
 
 async function getAdminPlaytime(adminNickname: string, period: string) {
-    const res = await axios.get(`http://localhost:3000/api/playtimes/${period}/${adminNickname}`);
+    const res = await axios.get(`https://codmod-summary.vercel.app/api/playtimes/${period}/${adminNickname}`);
     return res.data;
 }
 
