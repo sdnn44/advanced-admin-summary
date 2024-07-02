@@ -32,13 +32,11 @@ export default function Page() {
         const adminRef = ref(db, 'admins/newbansdd2/Axel')
         get(adminRef).then((snapshot) => {
             if (snapshot.exists()) {
-                // console.log(snapshot.val())
                 const adminObject: Record<string, BanType> = snapshot.val();
-                const adminArray = Object.entries(adminObject).map(([id, data]) =>  ({
+                const adminArray = Object.entries(adminObject).map(([id, data]) => ({
                     id,
                     ...data,
                 }));
-                console.log(adminArray);
                 setAdminData(adminArray);
             } else {
                 console.log("No data avaiable");
@@ -47,7 +45,7 @@ export default function Page() {
             console.log(err);
         })
     }, []);
-    
+
     return (
         <section className='py-24'>
             <div className='container'>

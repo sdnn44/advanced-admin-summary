@@ -44,7 +44,7 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
             redirect("/signin");
         }
     }, []);
-    
+
 
     const [user, setUser] = useState<AdminType>({
         id: null,
@@ -86,7 +86,6 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
         setLoading(true)
         axiosClient.get(`/admins/${params.id}`)
             .then(({ data }) => {
-                console.log(data)
                 setLoading(false)
                 setUser(data)
                 form.reset(data)
@@ -107,7 +106,6 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
             strefaskilla_url: strefaskilla_urlRef.current?.value,
             tsarvar_url: tsarvar_urlRef.current?.value
         }
-        console.log(payload);
 
         if (user.id) {
             axiosClient.put(`/admins/${user.id}`, payload)
@@ -119,6 +117,7 @@ export default function EditAdminPage({ params }: { params: { id: string } }) {
                 .catch(err => {
                     const response = err.response;
                     if (response && response.status === 422) {
+                        console.log(response.data.errors);
                         setErrors(response.data.errors)
                     }
                 });

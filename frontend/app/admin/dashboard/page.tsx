@@ -21,10 +21,8 @@ const Page = () => {
 
     useEffect(() => {
         axiosClient.get('/user').then(({ data }) => {
-            console.log(data);
             setUser(data);
         });
-        console.log(adminDashboard);
     }, [adminDashboard]);
 
     return (

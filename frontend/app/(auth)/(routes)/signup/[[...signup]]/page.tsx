@@ -55,7 +55,6 @@ const Page = () => {
             password: passwordRef.current?.value,
             password_confirmation: passwordConfirmationRef.current?.value,
         }
-        console.log(payload);
         axiosClient.post('/signup', payload)
             .then(({ data }) => {
                 setUser(data.user);
@@ -143,7 +142,7 @@ const Page = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <Button type='submit' className='w-full border-zinc-500 bg-[#8884d8] text-white hover:bg-[#6764a4] duration-300 ease-in-out border rounded-full px-8'>Zatwierdź</Button>
+                                <Button type='reset' className='w-full border-zinc-500 bg-[#8884d8] text-white hover:bg-[#6764a4] duration-300 ease-in-out border rounded-full px-8'>Zatwierdź</Button>
                             </form>
                         </Form>
                     </div>

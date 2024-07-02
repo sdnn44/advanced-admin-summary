@@ -11,8 +11,8 @@ interface GlobalContextProps {
     admin: BanType[];
     adminPlaytime: PlaytimeType[];
     admins: BanType[];
-    searchedAdmin?: AdminType;
-    setSearchedAdmin: (value: AdminType) => void;
+    searchedAdmin: AdminType | null;
+    setSearchedAdmin: (value: AdminType | null) => void;
     setAdminNickname: (value: string) => void;
     getNumberOfAdminBans: () => number;
     getNumberOfGivenDemos: () => number;
@@ -45,7 +45,7 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
     const [admin, setAdmin] = useState<BanType[]>([]);
     const [adminPlaytime, setAdminPlaytime] = useState<PlaytimeType[]>([]);
     const [admins, setAdmins] = useState<BanType[]>([]);
-    const [searchedAdmin, setSearchedAdmin] = useState<AdminType>();
+    const [searchedAdmin, setSearchedAdmin] = useState<AdminType | null>(null);
     const [adminNickname, setAdminNickname] = useState<string>('Axel');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [collapsed, setCollapsed] = useState<boolean>(false);
@@ -129,7 +129,6 @@ export function GlobalProvider({ children }: { children: ReactNode }): JSX.Eleme
 
         axiosClient.get(`/admins`)
             .then(({ data }) => {
-                console.log(data.data);
                 setAdminDashboard(data.data);
             })
             .catch(err => {

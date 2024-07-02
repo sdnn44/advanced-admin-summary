@@ -9,7 +9,6 @@ export async function GET(req: Request, { params }: { params: { period: string; 
         // if (!userId)
         // return NextResponse.json({ error: "Unauthorized", status: 401 });
         const { nickname, period } = params;
-        console.log(nickname);
         const adminRef = ref(db, `admins/playtimecodmod/${period}/${nickname}`);
         const adminSnapshot = await get(adminRef);
         if (adminSnapshot.exists()) {

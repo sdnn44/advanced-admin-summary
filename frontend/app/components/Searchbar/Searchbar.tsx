@@ -52,17 +52,13 @@ export default function Searchbar({ }: Props) {
         setIsLoadingAdmin(true);
         if (!searchQuery || searchQuery.trim() === "")
             return;
-        console.log(isLoadingAdmin);
         // const response = await fetchAdminByName(searchQuery);
         const response = { data: adminDashboard.filter(admin => admin.name.toLowerCase().includes(searchQuery.toLowerCase())) };
-        console.log(response);
         if (response.data && response.data.length === 0) {
             setNoAdmins(true)
         }
         setAdminList(response.data);
-        console.log(response.data);
         setIsLoadingAdmin(false);
-        console.log(isLoadingAdmin);
     }
 
     useEffect(() => {

@@ -90,7 +90,6 @@ export default function AddNewAdminPage() {
             strefaskilla_url: strefaskilla_urlRef.current?.value,
             tsarvar_url: tsarvar_urlRef.current?.value,
         }
-        console.log(payload);
 
         axiosClient.post('/admins', payload)
             .then(() => {

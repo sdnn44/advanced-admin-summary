@@ -8,7 +8,6 @@ type Props = {}
 
 export default function Header({ }: Props) {
     const { user, token, setUser, setToken } = useGlobalState();
-    console.log(user);
     const onLogout = (e: any) => {
         e.preventDefault();
         axiosClient.post('/logout').then(() => {

@@ -19,7 +19,6 @@ const LineChartPlaytime = ({ adminPlaytime }: { adminPlaytime: PlaytimeType[] })
     });
 
     const playtimes = adminPlaytime.map(entry => entry.playtime);
-    console.log(playtimes);
 
     return (
         <LineChart

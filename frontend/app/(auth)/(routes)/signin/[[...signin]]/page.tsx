@@ -46,12 +46,10 @@ const Page = () => {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
         }
-        console.log(payload);
         axiosClient.post('/login', payload)
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
-                console.log(data.token);
                 router.push('/admin/dashboard');
             })
             .catch(err => {
