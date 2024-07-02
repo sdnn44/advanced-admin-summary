@@ -1,13 +1,8 @@
 "use client";
-import adminData from '@/app/utils/admins-data';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { FaBars } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa";
 import { useGlobalState } from '@/app/context/globalContextProvider';
-import { AdminType } from '@/app/types/AdminType';
-import { useEffect, useState } from 'react';
-import axiosClient from '@/app/utils/axios-client';
-import Loader from '../Loader/Loader';
 type Props = {}
 
 export default function Sidebar({ }: Props) {
