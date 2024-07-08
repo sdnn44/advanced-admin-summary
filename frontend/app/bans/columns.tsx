@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { BanType } from "../types/BanType"
+import { dateSortingFn } from "../utils/parseDataString"
 
 export const columns: ColumnDef<BanType>[] = [
   {
@@ -37,7 +38,18 @@ export const columns: ColumnDef<BanType>[] = [
   },
   {
     accessorKey: "Date",
-    header: "Data wykoniania",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting()}
+        >
+          Data wykonania
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    sortingFn: dateSortingFn
   },
   {
     id: "actions",
