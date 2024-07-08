@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { BanType } from "../types/BanType"
 import { dateSortingFn } from "../utils/parseDataString"
+import Link from "next/link"
 
 export const columns: ColumnDef<BanType>[] = [
   {
@@ -55,7 +56,7 @@ export const columns: ColumnDef<BanType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const details = row.original
- 
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -65,14 +66,14 @@ export const columns: ColumnDef<BanType>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Opcje</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(details.SteamID)}
             >
-              Copy SteamID
+              Skopiuj SteamID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View ban details</DropdownMenuItem>
+            <DropdownMenuItem><Link href={"http://banycod.gameclan.pl/bany/search.php" } rel="noopener noreferrer" target="_blank">Szczegóły bana</Link></DropdownMenuItem>
             {/* <DropdownMenuItem>View payment details</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
