@@ -18,7 +18,7 @@ function AdminCard({ admin, index }: Prop) {
         <div
             className='w-full flex flex-row m-1 hover:bg-violet-700/15 cursor-pointer gap-3 items-center p-2'
             onClick={() => {
-                router.push(`/admin/lipiec/${encodeURIComponent(admin.name)}`);
+                router.push(`/admin/sierpien/${encodeURIComponent(admin.name)}`);
                 // getSpecificAdmin(admin.nickname);
                 // getSpecificAdminPlaytime(admin.nickname);
                 setSearchedAdmin(admin);
