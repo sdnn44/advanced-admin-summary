@@ -37,7 +37,7 @@ export default async function AdminDetails({ params }: { params: { nickname: str
         },
         {
             id: 4,
-            periodLabel: "sierpień",
+            periodLabel: "sierpien",
         }
     ];
 
